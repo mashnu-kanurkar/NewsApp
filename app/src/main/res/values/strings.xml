@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MoEngage News</string>
+    <string name="source">NBC News</string>
+    <string name="author">Elisha Fieldstadt</string>
+    <string name="date">2020-02-10T14:21:00Z</string>
+    <string name="imge_url">https://media1.s-nbcnews.com/j/newscms/2020_07/3223716/200210-timberland-headquarters-mn-0835_7873bab4acfbfd17562465e48564a56f.nbcnews-fp-1200-630.jpg</string>
+    <string name="title">Man charged with murder after woman found dead at Timberland\'s N.H. headquarters - NBC News</string>
+    <string name="description">A woman was killed Sunday at Timberland\'s headquarters in New Hampshire. Robert Pavao, 20, from Maine, was charged with second-degree murder.</string>
+    <string name="content">A 20-year-old man will be arraigned Monday on a murder charge after a woman was found dead at Timberland\'s headquarters in Stratham, New Hampshire, authorities said.\r\nThe New Hampshire State Police and the Stratham Police Department responded to the outdoor w…</string>
+    <string name="news_image">News Image</string>
+    <string name="down_symbol">\u25BC</string>
+    <string name="up_symbol">\u25B2</string>
+    <string name="filter_icon">Filter Icon</string>
+    <string name="top_news">Top News</string>
+    <string name="no_network">No Network</string>
+    <string name="no_network_description">Please enable wifi or Data connection and try again</string>
+</resources>

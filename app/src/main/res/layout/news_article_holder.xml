@@ -2,7 +2,6 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardElevation="10dp"
@@ -15,6 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/background"
         android:padding="4dp">
 
         <TextView
@@ -64,7 +64,7 @@
             android:layout_marginEnd="8dp"
             android:gravity="fill"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:text="@string/title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,29 +90,12 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:gravity="fill_horizontal"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:text="@string/description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_news" />
-
-        <androidx.constraintlayout.widget.Group
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/group_content"
-            app:constraint_referenced_ids="divider2, tv_content"/>
-
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_description" />
 
         <TextView
             android:id="@+id/tv_content"
@@ -123,17 +106,18 @@
             android:layout_marginEnd="8dp"
             android:gravity="fill"
             android:visibility="gone"
+            android:textColor="@color/white"
             android:text="@string/content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider2" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
         <View
             android:id="@+id/divider3"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
-            android:background="@android:color/darker_gray"
+            android:background="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_content" />

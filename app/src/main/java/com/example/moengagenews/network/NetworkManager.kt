@@ -1,7 +1,5 @@
 package com.example.moengagenews.network
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -13,12 +11,22 @@ import java.lang.IllegalArgumentException
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
+
+/***
+ * Network manager class is a generic class performs remote data fetch action and process it with applicable response parser
+ * [responseParser] ResponseParser object e.g NewsResponseParser
+ */
 class NetworkManager<T> (private var responseParser: ResponseParser<T>?){
     private val TAG = this::class.java.simpleName
     fun setResponseParser(responseParser: ResponseParser<T>){
         this.responseParser = responseParser
     }
 
+    /***
+     * Creates a HTTP connection and process the response.
+     * @param [String] endpoint from where the data needs to be fetched
+     * @return [Result] either [Result.Success] or [Result.Error]
+     */
     suspend fun getRemoteResponse(url: String): Result<T> {
         if (url.contains("http").not()) {
             Log.e(TAG, "invalid url -> $url")

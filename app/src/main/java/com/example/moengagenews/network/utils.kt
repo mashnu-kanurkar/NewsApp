@@ -20,3 +20,8 @@ fun Date.toStringFormat():String{
     val format = SimpleDateFormat("dd MMMM, yyyy hh:mm a", Locale.US)
     return format.format(this)
 }
+
+sealed class LoadingState{
+    data class IsLoading(val isLoading: Boolean): LoadingState()
+    data class hasError(val error: String): LoadingState()
+}

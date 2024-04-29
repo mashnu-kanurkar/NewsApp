@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moengagenews.data.model.News
+import com.example.moengagenews.network.LoadingState
 import kotlinx.coroutines.launch
 import com.example.moengagenews.network.Result
 import com.example.moengagenews.network.NetworkManager
@@ -16,7 +17,7 @@ class MainActivityViewModel: ViewModel() {
     private var sortOrder: SortOrder = SortOrder.Descending
     private var currentFilter = "All"
     private var newsList : List<News> = mutableListOf()
-    val tagLiveData: MutableLiveData<List<String>> by lazy {
+    val tagLiveData: MutableLiveData<Set<String>> by lazy {
         MutableLiveData()
     }
 
@@ -24,6 +25,9 @@ class MainActivityViewModel: ViewModel() {
         MutableLiveData<List<News>>()
     }
 
+    val loadingState: MutableLiveData<LoadingState> by lazy {
+        MutableLiveData<LoadingState>()
+    }
 
     init {
         fetchNewsArticles()
@@ -31,6 +35,7 @@ class MainActivityViewModel: ViewModel() {
 
     fun fetchNewsArticles(){
         viewModelScope.launch {
+            loadingState.postValue(LoadingState.IsLoading(true))
             val networkManager = NetworkManager(NewsResponseParser())
             val result = networkManager.getRemoteResponse(newsURL)
             Log.d("MainActivityViewModel", "Article fetch completed")
@@ -39,12 +44,17 @@ class MainActivityViewModel: ViewModel() {
                     Log.d("MainActivityViewModel", "size: ${result.data.size}")
                     newsList = result.data
                     newsArticles.postValue(newsList)
+                    loadingState.postValue(LoadingState.IsLoading(false))
+                    getTagsFromList(newsList)
                     Log.d("MainActivityViewModel",newsList.toString() )
                 }
                 is Result.Error ->{
                     //show some error related functionality
+                    loadingState.postValue(LoadingState.hasError(result.exception.toString()))
                     Log.d("MainActivityViewModel",result.exception.toString() )
                 }
+
+                else -> {}
             }
         }
     }
@@ -54,13 +64,13 @@ class MainActivityViewModel: ViewModel() {
             val newsWithTagList = newsList.filter {
                 it.source?.name != null
             }
-            val tagsList = mutableListOf<String>()
+            val tagsSet = mutableSetOf<String>()
             newsWithTagList.forEach {
                 it.source?.name?.let {
-                    tagsList.add(it)
+                    tagsSet.add(it)
                 }
             }
-            tagLiveData.postValue(tagsList)
+            tagLiveData.postValue(tagsSet)
         }
 
     }
@@ -79,6 +89,8 @@ class MainActivityViewModel: ViewModel() {
                     newsArticles.postValue(sorted)
                     newsList.sortedBy { it.publishedAt }
                 }
+
+                else -> {}
             }
         }
 
@@ -87,13 +99,14 @@ class MainActivityViewModel: ViewModel() {
     fun filterByTag(tag: String){
         viewModelScope.launch {
             currentFilter = tag
-            if (tag == "All"){
+            if (tag.equals("All", ignoreCase = true)){
                 newsArticles.postValue(newsList)
+            }else{
+                val filtered = newsList.filter {
+                    it.source?.name.equals(tag, ignoreCase = true)
+                }
+                newsArticles.postValue(filtered)
             }
-            val filtered = newsList.filter {
-                it.source?.name.equals(tag, ignoreCase = true)
-            }
-            newsArticles.postValue(filtered)
         }
     }
 

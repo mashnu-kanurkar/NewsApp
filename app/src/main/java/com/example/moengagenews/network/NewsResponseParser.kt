@@ -8,6 +8,9 @@ import com.google.gson.reflect.TypeToken
 import org.json.JSONObject
 import java.lang.reflect.Type
 
+/***
+ * NewsResponseParser to read the JSON string and converts it to [List<News>]
+ */
 class NewsResponseParser: ResponseParser<List<News>>() {
     private val TAG = this::class.simpleName
     override fun parse(response: String): List<News> {

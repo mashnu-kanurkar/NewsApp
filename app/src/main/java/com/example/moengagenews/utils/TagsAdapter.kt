@@ -7,6 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moengagenews.R
 
+/***
+ * Adapter to hold the tag list
+ */
 class TagsAdapter(private val tagsList: List<String>): RecyclerView.Adapter<TagsAdapter.ViewHolder>() {
     var mClickListener: TagClickListener? = null
 

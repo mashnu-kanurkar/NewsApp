@@ -1,5 +1,6 @@
 package com.example.moengagenews.utils
 
+import android.opengl.Visibility
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,10 @@ import com.example.moengagenews.data.model.News
 import com.example.moengagenews.R
 import com.example.moengagenews.network.toStringFormat
 
+/***
+ * News Adapter class to hold the news article data
+ *
+ */
 class NewsAdapter(private val newsList: List<News>): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     var mClickListener: ItemClickListener? = null
@@ -40,7 +45,7 @@ class NewsAdapter(private val newsList: List<News>): RecyclerView.Adapter<NewsAd
             imageViewNews = view.findViewById(R.id.image_news)
 
             tvContent = view.findViewById(R.id.tv_content)
-
+            tvContent.visibility = View.GONE
             arrowText = view.findViewById(R.id.tv_read_more)
             arrowText.setOnClickListener{
                 if (state == 0){
@@ -56,7 +61,6 @@ class NewsAdapter(private val newsList: List<News>): RecyclerView.Adapter<NewsAd
             itemView.setOnClickListener(this)
         }
 
-
         override fun onClick(v: View?) {
             mClickListener?.let {
                 mClickListener?.onItemClick(v, adapterPosition)
@@ -71,14 +75,14 @@ class NewsAdapter(private val newsList: List<News>): RecyclerView.Adapter<NewsAd
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.news_article_holder, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.news_article_holder, parent, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
+        Log.d("getItemCount", "News list size: ${newsList.size}")
         return newsList.size
     }
 

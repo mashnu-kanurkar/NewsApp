@@ -14,4 +14,7 @@
     <string name="top_news">Top News</string>
     <string name="no_network">No Network</string>
     <string name="no_network_description">Please enable wifi or Data connection and try again</string>
+    <string name="default_notification_channel_id">general</string>
+    <string name="default_notification_channel_name">General</string>
+    <string name="default_notification_channel_description">General notifications</string>
 </resources>
